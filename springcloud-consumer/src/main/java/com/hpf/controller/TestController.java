@@ -1,6 +1,9 @@
 package com.hpf.controller;
 
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,9 @@ public class TestController {
 
     @Autowired
     DiscoveryClient client;
+
+    @Autowired
+    EurekaClient client2;
 /*
     @RequestMapping(value = "/router",method = RequestMethod.GET)
     public String router(){
@@ -30,7 +36,21 @@ public class TestController {
     public void client(){
         List<String> services = client.getServices();
         for (String service : services) {
-            System.out.println(service);
+            System.out.println("1     "+service);
+        }
+        List<InstanceInfo> provider = client2.getInstancesById("provider:81");
+        if(provider.size()>0){
+            InstanceInfo instanceInfo= provider.get(0);
+            String url =	"http://" + instanceInfo.getHostName() +":"+ instanceInfo.getPort() + "/HI";
+
+            System.out.println("url:" + url);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            String respStr = restTemplate.getForObject(url, String.class);
+
+            System.out.println("respStr"  + respStr);
+
         }
 
     }

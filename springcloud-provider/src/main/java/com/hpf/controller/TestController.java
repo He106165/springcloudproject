@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @RequestMapping(value = "/person/{name}",method = RequestMethod.GET)
-    public String findName(@PathVariable("name") String name){
-        return name;
+    @RequestMapping("HI")
+    public String findName( String name){
+        return "HI";
     }
 }
