@@ -11,11 +11,11 @@ import java.util.Map;
  * 定义provider里的接口
  * */
 
-@RequestMapping("/User")
+//@RequestMapping("/User")
 public interface userApi {
 
         /**
-         * @method
+         *
          * @return
          * */
         @GetMapping("/isAlive")
@@ -23,4 +23,7 @@ public interface userApi {
 
         @GetMapping("/findById")
         public Map findById(@RequestParam("id") Integer id);
+
+        @GetMapping("port")
+        public String getPort();
 }

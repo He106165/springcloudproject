@@ -1,5 +1,6 @@
 package com.hpf.controller;
 
+import com.hpf.service.RestUserServices;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class TestController {
 
     @Autowired
     EurekaClient client2;
+
+    @Autowired
+    RestUserServices userServices;
 /*
     @RequestMapping(value = "/router",method = RequestMethod.GET)
     public String router(){
@@ -50,8 +54,12 @@ public class TestController {
             String respStr = restTemplate.getForObject(url, String.class);
 
             System.out.println("respStr"  + respStr);
-
         }
+    }
 
+
+    @RequestMapping("clientRest")
+    public void clientRest(){
+        userServices.alive();
     }
 }
